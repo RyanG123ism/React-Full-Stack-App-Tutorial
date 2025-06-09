@@ -1,1 +1,0 @@
-console.log("This is the client index.js file. It is used to set up the client-side application.");
