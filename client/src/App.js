@@ -1,29 +1,19 @@
 import './App.css';
-import axios from 'axios'; // Import axios for making HTTP requests
-import { useState, useEffect } from 'react'; // Import useEffect for side effects in functional components
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'; // Import react-router-dom for routing
+import Home from './pages/Home.js'; // Import Home component
+import CreatePost from './pages/CreatePost.js'; // Import CreatePost component
 
 function App() {
-
-    const [listOfPosts, setListOfPosts] = useState([]); // State to hold posts data
-
-    useEffect(() => {
-      axios.get('http://localhost:3001/posts') // Make a GET request to the server
-        .then(response => {
-          console.log(response.data); // Log the response data to the console
-          setListOfPosts(response.data); // Update the state with the fetched posts
-        })
-    }, []); // This effect runs once when the component mounts
- 
     return <div className="App"> 
-      {listOfPosts.map((value, key) => {return (
-        <div className="post"> 
-          <div className="title"> {value.title} </div>
-          <div className="body"> {value.postText} </div>
-          <div className="footer"> {value.username} </div>
+        <Router>
+          <Link to = "/createPost">Create a Post</Link>
+          <Link to = "/">Home</Link>
+            <Routes>
+                <Route path="/" exact element ={<Home />}/>
+                <Route path="/createPost" exact element ={<CreatePost />}/>
+            </Routes>
+        </Router>
         </div>
-        )})} 
-      </div>;
-
 }
 
 export default App;
